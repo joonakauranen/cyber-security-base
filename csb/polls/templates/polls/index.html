@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Polls</title>
+    </head>
+ 
+ 
+    <body>
+		<h1>Polls</h1>
+
+        <table>
+            <tr>
+            <th style="text-align:left">Logged in as: <td>{{user.username}} 
+        </table>
+ 
+        {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <p>No polls are available.</p>
+        {% endif %}
+
+        <form action='logout/' method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+ 
+    </body>
+</html>
