@@ -68,6 +68,20 @@ TEMPLATES = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True, #this needs to be turned to False
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
 WSGI_APPLICATION = 'csb.wsgi.application'
 
 LOGIN_URL = '/login/'
@@ -93,15 +107,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
     #{
     #    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     #},
     #{
     #    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     #},
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
 ]
 
 

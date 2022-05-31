@@ -23,16 +23,20 @@ def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
 
-@login_required
+#@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
+        user = request.user
+        user_id = str(user.id)
+        user_cookie = str(request.COOKIES)
+        full_path = str(request.get_full_path_info())
         return render(request, 'polls/detail.html', {
             'question': question,
-            'error_message': "You didn't select a choice.",
+            'error_message': "User with an id " + user_id + " didn't select a choice. @" + full_path + " Details: " + user_cookie,
         })
     else:
         selected_choice.votes += 1
